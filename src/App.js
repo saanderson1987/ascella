@@ -1,16 +1,28 @@
 import React, { useState } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import About from "./About";
 import ToDoList from "./ToDoList";
 
+const views = {
+  about: <About />,
+  toDoList: <ToDoList />,
+};
+
 const App = () => {
-  const [view, setView] = useState("");
+  const [value, setValue] = useState("toDoList");
+
   return (
-    <div>
-      <button onClick={() => setView("about")}>About</button>
-      <button onClick={() => setView("to-do-list")}>To Do List</button>
-      {view === "about" && <About />}
-      {view === "to-do-list" && <ToDoList />}
-    </div>
+    <>
+      <AppBar position="static">
+        <Tabs value={value} onChange={(event, newValue) => setValue(newValue)}>
+          <Tab label="About" value="about"></Tab>
+          <Tab label="To Do List" value="toDoList"></Tab>
+        </Tabs>
+      </AppBar>
+      {views[value]}
+    </>
   );
 };
 
