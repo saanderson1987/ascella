@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editText } from "./redux/toDos";
+import { addNote } from "./redux/toDos";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "./Modal";
 import TextField from "@material-ui/core/TextField";
@@ -13,27 +13,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditToDoModal = ({ index, initialText, open, onClose }) => {
-  const [text, setText] = useState(initialText);
-  const classes = useStyles();
+const AddNoteModal = ({ toDoIndex, open, onClose }) => {
+  const [note, setNote] = useState("");
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   return (
-    <Modal header="Edit To Do Item" open={open} onClose={onClose}>
+    <Modal header="Add Note" open={open} onClose={onClose}>
       <form>
-        <TextField
-          label="Item Text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          variant="outlined"
-          fullWidth
-          className={classes.input}
-        />
+        <div className={classes.input}>
+          <TextField
+            label="Note Text"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+        </div>
         <ButtonRow>
           <Button
             onClick={() => {
               onClose();
-              dispatch(editText({ index, text }));
+              dispatch(addNote({ toDoIndex, note }));
             }}
             variant="contained"
             color="primary"
@@ -49,4 +50,4 @@ const EditToDoModal = ({ index, initialText, open, onClose }) => {
   );
 };
 
-export default EditToDoModal;
+export default AddNoteModal;
