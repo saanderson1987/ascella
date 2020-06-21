@@ -13,46 +13,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditToDoModal = ({
-  noteIndex,
-  toDoIndex,
-  initialNote,
-  open,
-  onClose,
-}) => {
+const EditToDoModalBody = ({ noteIndex, toDoIndex, initialNote, onClose }) => {
   const [note, setNote] = useState(initialNote);
   const classes = useStyles();
   const dispatch = useDispatch();
 
   return (
-    <Modal header="Edit Note" open={open} onClose={onClose}>
-      <form>
-        <TextField
-          label="Note Text"
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          variant="outlined"
-          fullWidth
-          className={classes.input}
-        />
-        <ButtonRow>
-          <Button
-            onClick={() => {
-              onClose();
-              dispatch(editNote({ toDoIndex, noteIndex, note }));
-            }}
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
-          <Button onClick={onClose} variant="contained">
-            Cancel
-          </Button>
-        </ButtonRow>
-      </form>
-    </Modal>
+    <form>
+      <TextField
+        label="Note Text"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        variant="outlined"
+        fullWidth
+        className={classes.input}
+      />
+      <ButtonRow>
+        <Button
+          onClick={() => {
+            onClose();
+            dispatch(editNote({ toDoIndex, noteIndex, note }));
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
+        <Button onClick={onClose} variant="contained">
+          Cancel
+        </Button>
+      </ButtonRow>
+    </form>
   );
 };
 
-export default EditToDoModal;
+export default ({ noteIndex, toDoIndex, initialNote, open, onClose }) => (
+  <Modal header="Edit Note" open={open} onClose={onClose}>
+    <EditToDoModalBody
+      noteIndex={noteIndex}
+      toDoIndex={toDoIndex}
+      initialNote={initialNote}
+      onClose={onClose}
+    />
+  </Modal>
+);

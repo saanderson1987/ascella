@@ -8,12 +8,12 @@ import List from "@material-ui/core/List";
 import AddNoteModal from "./AddNoteModal";
 import NoteItem from "./NoteItem";
 
-const ToDoNotesModal = ({ toDoIndex, open, onClose }) => {
+const ToDoNotesModalBody = ({ toDoIndex }) => {
   const [isAddNoteModalOpen, setIsAddNoteModalOpen] = useState(false);
-  const { text, notes } = useSelector(selectToDoItem(toDoIndex));
+  const { notes } = useSelector(selectToDoItem(toDoIndex));
 
   return (
-    <Modal header={`Notes for "${text}"`} open={open} onClose={onClose}>
+    <>
       <Button
         onClick={() => setIsAddNoteModalOpen(true)}
         startIcon={<AddCircleIcon />}
@@ -37,8 +37,12 @@ const ToDoNotesModal = ({ toDoIndex, open, onClose }) => {
           />
         ))}
       </List>
-    </Modal>
+    </>
   );
 };
 
-export default ToDoNotesModal;
+export default ({ text, toDoIndex, open, onClose }) => (
+  <Modal header={`Notes for "${text}"`} open={open} onClose={onClose}>
+    <ToDoNotesModalBody toDoIndex={toDoIndex} />
+  </Modal>
+);

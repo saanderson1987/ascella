@@ -13,41 +13,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddNoteModal = ({ toDoIndex, open, onClose }) => {
+const AddNoteModalBody = ({ toDoIndex, onClose }) => {
   const [note, setNote] = useState("");
   const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
-    <Modal header="Add Note" open={open} onClose={onClose}>
-      <form>
-        <div className={classes.input}>
-          <TextField
-            label="Note Text"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            variant="outlined"
-            fullWidth
-          />
-        </div>
-        <ButtonRow>
-          <Button
-            onClick={() => {
-              onClose();
-              dispatch(addNote({ toDoIndex, note }));
-            }}
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
-          <Button onClick={onClose} variant="contained">
-            Cancel
-          </Button>
-        </ButtonRow>
-      </form>
-    </Modal>
+    <form>
+      <div className={classes.input}>
+        <TextField
+          label="Note Text"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          variant="outlined"
+          fullWidth
+        />
+      </div>
+      <ButtonRow>
+        <Button
+          onClick={() => {
+            onClose();
+            dispatch(addNote({ toDoIndex, note }));
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
+        <Button onClick={onClose} variant="contained">
+          Cancel
+        </Button>
+      </ButtonRow>
+    </form>
   );
 };
 
-export default AddNoteModal;
+export default ({ toDoIndex, open, onClose }) => (
+  <Modal header="Add Note" open={open} onClose={onClose}>
+    <AddNoteModalBody toDoIndex={toDoIndex} onClose={onClose} />
+  </Modal>
+);

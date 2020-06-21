@@ -13,41 +13,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddToDoModal = ({ open, onClose }) => {
+const AddToDoModalBody = ({ onClose }) => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
-    <Modal header="Add To Do Item" open={open} onClose={onClose}>
-      <form>
-        <div className={classes.input}>
-          <TextField
-            label="Item Text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            variant="outlined"
-            fullWidth
-          />
-        </div>
-        <ButtonRow>
-          <Button
-            onClick={() => {
-              onClose();
-              dispatch(addToDo(text));
-            }}
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
-          <Button onClick={onClose} variant="contained">
-            Cancel
-          </Button>
-        </ButtonRow>
-      </form>
-    </Modal>
+    <form>
+      <div className={classes.input}>
+        <TextField
+          label="Item Text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          variant="outlined"
+          fullWidth
+        />
+      </div>
+      <ButtonRow>
+        <Button
+          onClick={() => {
+            onClose();
+            dispatch(addToDo(text));
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
+        <Button onClick={onClose} variant="contained">
+          Cancel
+        </Button>
+      </ButtonRow>
+    </form>
   );
 };
 
-export default AddToDoModal;
+export default ({ open, onClose }) => (
+  <Modal header="Add To Do Item" open={open} onClose={onClose}>
+    <AddToDoModalBody onClose={onClose} />
+  </Modal>
+);

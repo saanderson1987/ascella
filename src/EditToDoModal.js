@@ -13,40 +13,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditToDoModal = ({ index, initialText, open, onClose }) => {
+const EditToDoModalBody = ({ index, initialText, onClose }) => {
   const [text, setText] = useState(initialText);
   const classes = useStyles();
   const dispatch = useDispatch();
 
   return (
-    <Modal header="Edit To Do Item" open={open} onClose={onClose}>
-      <form>
-        <TextField
-          label="Item Text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          variant="outlined"
-          fullWidth
-          className={classes.input}
-        />
-        <ButtonRow>
-          <Button
-            onClick={() => {
-              onClose();
-              dispatch(editText({ index, text }));
-            }}
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
-          <Button onClick={onClose} variant="contained">
-            Cancel
-          </Button>
-        </ButtonRow>
-      </form>
-    </Modal>
+    <form>
+      <TextField
+        label="Item Text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        variant="outlined"
+        fullWidth
+        className={classes.input}
+      />
+      <ButtonRow>
+        <Button
+          onClick={() => {
+            onClose();
+            dispatch(editText({ index, text }));
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
+        <Button onClick={onClose} variant="contained">
+          Cancel
+        </Button>
+      </ButtonRow>
+    </form>
   );
 };
 
-export default EditToDoModal;
+export default ({ index, initialText, open, onClose }) => (
+  <Modal header="Edit To Do Item" open={open} onClose={onClose}>
+    <EditToDoModalBody
+      index={index}
+      initialText={initialText}
+      onClose={onClose}
+    />
+  </Modal>
+);

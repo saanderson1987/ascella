@@ -57,6 +57,7 @@ const ToDoItem = ({ item: { checked, text }, index }) => {
         onClose={() => setIsEditToDoModalOpen(false)}
       />
       <ToDoNotesModal
+        text={text}
         toDoIndex={index}
         open={isToDoNotesModalOpen}
         onClose={() => setIsToDoNotesModalOpen(false)}
