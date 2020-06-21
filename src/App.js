@@ -11,7 +11,7 @@ const views = {
 };
 
 const App = () => {
-  const [value, setValue] = useState("toDoList");
+  const [value, setValue] = useState("about");
 
   return (
     <>
