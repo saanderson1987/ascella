@@ -2,13 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const toDosSlice = createSlice({
   name: "toDos",
-  initialState: [
-    {
-      checked: false,
-      text: "Feed the dog.",
-      notes: ["make sure done by 4pm"],
-    },
-  ],
+  initialState: [],
   reducers: {
     addToDo: (state, { payload: text }) => [
       ...state,
